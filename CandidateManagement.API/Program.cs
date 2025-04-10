@@ -1,3 +1,4 @@
+using CandidateManagement.Application.Converters;
 using CandidateManagement.Application.Repositories;
 using CandidateManagement.Application.Services;
 using CandidateManagement.Infrastructure.Data;
@@ -7,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+    options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonConverter()));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
