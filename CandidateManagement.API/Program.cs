@@ -1,6 +1,8 @@
 using CandidateManagement.Application.Repositories;
+using CandidateManagement.Application.Services;
 using CandidateManagement.Infrastructure.Data;
 using CandidateManagement.Infrastructure.Repositories;
+using CandidateManagement.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
+builder.Services.AddScoped<ICandidateService, CandidateService>();
 
 var app = builder.Build();
 

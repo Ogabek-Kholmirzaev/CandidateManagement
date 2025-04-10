@@ -9,7 +9,8 @@ public class CandidateRepository(AppDbContext context) : ICandidateRepository
 {
     public async Task<Candidate?> GetByEmailAsync(string email)
     {
-        return await context.Candidates.FirstOrDefaultAsync(candidate => candidate.Email == email.ToLower());
+        return await context.Candidates
+            .FirstOrDefaultAsync(candidate => candidate.Email == email.ToLower());
     }
 
     public async Task AddAsync(Candidate candidate)
