@@ -1,4 +1,5 @@
 using System.Reflection;
+using CandidateManagement.API.Middlewares;
 using CandidateManagement.Application.Converters;
 using CandidateManagement.Application.DTOs;
 using CandidateManagement.Application.Repositories;
@@ -35,6 +36,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseErrorHandlingMiddleware();
 
 app.UseAuthorization();
 

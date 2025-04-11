@@ -21,18 +21,18 @@ public class CandidateDtoValidator : AbstractValidator<CandidateDto>
         RuleFor(x => x.PhoneNumber)
             .MaximumLength(20).WithMessage("Phone number cannot exceed 20 characters")
             .Matches(new Regex(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"))
-            .When(x => !string.IsNullOrEmpty(x.PhoneNumber))
+            .When(x => !string.IsNullOrWhiteSpace(x.PhoneNumber))
             .WithMessage("Please enter a valid phone number");
 
         RuleFor(x => x.Comment)
             .NotEmpty().WithMessage("Comment is required");
 
         RuleFor(x => x.LinkedInProfileUrl)
-            .Must(uri => !string.IsNullOrWhiteSpace(uri) && Uri.TryCreate(uri, UriKind.Absolute, out _))
+            .Must(uri => string.IsNullOrWhiteSpace(uri) || Uri.TryCreate(uri, UriKind.Absolute, out _))
             .WithMessage("Please enter a valid LinkedIn URL");
 
         RuleFor(x => x.GitHubProfileUrl)
-            .Must(uri => !string.IsNullOrWhiteSpace(uri) && Uri.TryCreate(uri, UriKind.Absolute, out _))
+            .Must(uri => string.IsNullOrWhiteSpace(uri) || Uri.TryCreate(uri, UriKind.Absolute, out _))
             .WithMessage("Please enter a valid GitHub URL");
 
         When(x => x.StartCallTime.HasValue, () =>
