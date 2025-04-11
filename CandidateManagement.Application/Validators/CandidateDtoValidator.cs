@@ -28,11 +28,11 @@ public class CandidateDtoValidator : AbstractValidator<CandidateDto>
             .NotEmpty().WithMessage("Comment is required");
 
         RuleFor(x => x.LinkedInProfileUrl)
-            .Must(uri => string.IsNullOrWhiteSpace(uri) || Uri.TryCreate(uri, UriKind.Absolute, out _))
+            .Must(uri => !string.IsNullOrWhiteSpace(uri) && Uri.TryCreate(uri, UriKind.Absolute, out _))
             .WithMessage("Please enter a valid LinkedIn URL");
 
         RuleFor(x => x.GitHubProfileUrl)
-            .Must(uri => string.IsNullOrWhiteSpace(uri) || Uri.TryCreate(uri, UriKind.Absolute, out _))
+            .Must(uri => !string.IsNullOrWhiteSpace(uri) && Uri.TryCreate(uri, UriKind.Absolute, out _))
             .WithMessage("Please enter a valid GitHub URL");
 
         When(x => x.StartCallTime.HasValue, () =>
